@@ -325,7 +325,20 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
 		<div class="container-sm pb-3">
 			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
 
-				<!-- --------------------------------card user -->
+				<?php
+				$query = mysqli_query($conn, "SELECT * FROM pejabat ORDER BY nama ASC");
+				if (mysqli_num_rows($query) == 0) {
+					echo "TIDAK ADA DATA";
+				} else {
+					while ($result = mysqli_fetch_array($query)) {
+						$username_pejabat = $result['username_pejabat'];
+						$nama = $result['nama'];
+						$nip = $result['nip'];
+						$no_hp = $result['no_hp'];
+						$alamat = $result['alamat'];
+						$foto = $result['foto'];
+				?>
+				
 				<div class="col">
 					<div class="card shadow-sm">
 						<div class="card-header warna-dasar">
@@ -364,6 +377,11 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
 						</div>
 					</div>
 				</div>
+
+				<?php
+					}
+				}
+				?>
 
 				<div class="col">
 					<div class="card shadow-sm">
