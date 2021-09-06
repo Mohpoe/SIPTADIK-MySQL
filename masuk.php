@@ -1,12 +1,55 @@
 <?php
 session_start();
-if (isset($_SESSION['user'])) {
-    if ($_SESSION['role'] == 1) {
-		header("Location: admin.php");
-	} elseif ($_SESSION['role'] == 2) {
-		header("Location: tamu.php");
-	} elseif ($_SESSION['role'] == 3) {
-		header("Location: pejabat.html");
+include "config.php";
+
+// if (isset($_SESSION['user'])) {
+//     if ($_SESSION['role'] == 1) {
+// 		header("Location: admin.php");
+// 	} elseif ($_SESSION['role'] == 2) {
+// 		header("Location: tamu.php");
+// 	} elseif ($_SESSION['role'] == 3) {
+// 		header("Location: pejabat.html");
+// 	}
+// }
+
+if (isset($_SESSION['user']) and isset($_SESSION['pass'])) {
+	$user = $_SESSION['user'];
+	$pass = $_SESSION['pass'];
+	$check = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM pengguna WHERE username='$user' AND password=Password('$pass')"));
+	if ($check != 1) {
+		header("Location: keluar.php");
+	} else {
+		if ($_SESSION['role'] == 1) {
+			header("Location: admin.php");
+		} elseif ($_SESSION['role'] == 2) {
+			header("Location: tamu.php");
+		} elseif ($_SESSION['role'] == 3) {
+			header("Location: pejabat.html");
+		}
+		exit;
+	}
+} else {
+	if (isset($_POST['masuk'])) {
+		$user = $_POST['pengguna'];
+		$pass = $_POST['sandi'];
+
+		$check = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM pengguna WHERE username='$user' AND password=Password('$pass')"));
+		if ($check != 1) {
+			$_SESSION['temp'] = "Nama dan sandi tidak sesuai!";
+		} else {
+			$fetch = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM pengguna WHERE username='$user' AND password=Password('$pass')"));
+			$_SESSION['user'] = $user;
+			$_SESSION['pass'] = $pass;
+			$_SESSION['role'] = $fetch['role'];
+			if ($_SESSION['role'] == 1) {
+				header("Location: admin.php");
+			} elseif ($_SESSION['role'] == 2) {
+				header("Location: tamu.php");
+			} elseif ($_SESSION['role'] == 3) {
+				header("Location: pejabat.html");
+			}
+			exit;
+		}
 	}
 }
 ?>
@@ -33,15 +76,14 @@ if (isset($_SESSION['user'])) {
 		<?php
 		if (isset($_SESSION['temp'])) {
 		?>
-		<div class="alert alert-warning" role="alert">
-			<?=$_SESSION['temp']?>
-		</div>
+			<div class="alert alert-warning" role="alert">
+				<?= $_SESSION['temp'] ?>
+			</div>
 		<?php
-		unset($_SESSION['temp']);
 		}
 		?>
 
-		<form method="POST" action="proses.php">
+		<form method="POST">
 			<img class="mb-4" src="img/title.png" alt="" width="57" height="57">
 			<h1 class="h3 mb-3 fw-normal">Silakan Masuk</h1>
 
@@ -62,3 +104,7 @@ if (isset($_SESSION['user'])) {
 </body>
 
 </html>
+
+<?php
+unset($_SESSION['temp']);
+?>

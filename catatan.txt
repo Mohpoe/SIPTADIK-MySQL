@@ -1,0 +1,1 @@
+INSERT INTO `pengguna` (`username`, `password`, `role`) VALUES ('admin', PASSWORD('123'), '1'), ('piket', PASSWORD('1234'), '2'), ('pejabat', PASSWORD('12345'), '3');
