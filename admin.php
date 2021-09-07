@@ -17,6 +17,7 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
 	}
 </style>
 
+<!-- SECONDARY NAVBAR -->
 <div class="nav-scroller bg-light shadow-sm">
 	<div class="container">
 		<nav class="nav nav-underline py-1" aria-label="Secondary navigation">
@@ -337,71 +338,33 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
 						$no_hp = $result['no_hp'];
 						$alamat = $result['alamat'];
 						$foto = $result['foto'];
+						$id = encrypt_decrypt("e", $username_pejabat);
 				?>
-				
-				<div class="col">
-					<div class="card shadow-sm">
-						<div class="card-header warna-dasar">
-							Pejabat Satu, M.Si
-						</div>
-						<div style="height: 265px; overflow: hidden;">
-							<img style="width: 100%;" src="./img/orang-1.jpeg">
-						</div>
-						<div class="card-body">
-							<!-- <p class="card-text">
-								<table>
-								<tr>
-									<td>Nama</td>
-									<td class="px-1">:</td>
-									<td>Pejabat Satu, M.Si</td>
-								</tr>
-								<tr>
-									<td>NIP</td>
-									<td class="px-1">:</td>
-									<td>123456</td>
-								</tr>
-								<tr>
-									<td>Jabatan</td>
-									<td class="px-1">:</td>
-									<td>Guild master</td>
-								</tr>
-								</table>
-							</p> -->
-							<div class="d-flex justify-content-between align-items-center">
-								<div class="btn-group">
-									<a href="detail.php" type="button" class="btn btn-sm btn-outline-primary">Detail</a>
-									<button type="button" class="btn btn-sm btn-outline-danger">Hapus</button>
+
+						<div class="col">
+							<div class="card shadow-sm">
+								<div class="card-header warna-dasar">
+									<?= $nama ?>
 								</div>
-								<small class="text-success">Ada</small>
+								<div style="height: 265px; overflow: hidden;">
+									<img style="width: 100%;" src="./img/<?= $foto ?>">
+								</div>
+								<div class="card-body">
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="btn-group">
+											<a href="detail.php?id=<?= $id ?>" type="button" class="btn btn-sm btn-outline-primary">Detail</a>
+											<button type="button" class="btn btn-sm btn-outline-danger">Hapus</button>
+										</div>
+										<small class="text-success">Ada</small>
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
-				</div>
 
 				<?php
 					}
 				}
 				?>
-
-				<div class="col">
-					<div class="card shadow-sm">
-						<div class="card-header warna-sibuk">
-							Pejabat Dua, S.Sos
-						</div>
-						<div style="height: 265px; overflow: hidden;">
-							<img style="width: 100%;" src="./img/orang-2.jpeg">
-						</div>
-						<div class="card-body">
-							<div class="d-flex justify-content-between align-items-center">
-								<div class="btn-group">
-									<a href="detail.php" type="button" class="btn btn-sm btn-outline-primary">Detail</a>
-									<button type="button" class="btn btn-sm btn-outline-danger">Hapus</button>
-								</div>
-								<small class="text-danger">Sibuk</small>
-							</div>
-						</div>
-					</div>
-				</div>
 
 			</div>
 		</div>
