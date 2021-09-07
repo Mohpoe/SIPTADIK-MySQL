@@ -1,5 +1,5 @@
 <?php
-include("validation.php");
+include "validation.php";
 include "config.php";
 
 // Fungsi encrypt dan decrypt

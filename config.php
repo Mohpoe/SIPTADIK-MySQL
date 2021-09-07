@@ -16,4 +16,5 @@ if ($conn) {
 } else {
 	die ("Server MySQL tidak terhubung");
 }
+$mysqli = new mysqli($host, $user, $pass, $dbnm);
 ?>

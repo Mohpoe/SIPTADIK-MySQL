@@ -9,8 +9,47 @@ if (!isset($_GET['id'])) {
 }
 $id = encrypt_decrypt("d", $_GET['id']);
 
-$query = mysqli_query($conn, "SELECT * FROM pejabat WHERE username_pejabat='$id'");
-$fetch = mysqli_fetch_array($query);
+$query = $mysqli->query("SELECT * FROM pejabat WHERE username_pejabat='$id'");
+mysqli_num_rows($query) == 0 ? header("Location: /") : $ambil = mysqli_fetch_array($query);
+
+if (isset($_POST['simpan_data'])) {
+	$foto = $ambil['foto'];
+	if ($_FILES["foto_pjb"]["tmp_name"] <> "") {
+		$target_dir = "img/profile/";
+		$temp = explode(".", $_FILES["foto_pjb"]["name"]);
+		$newfilename = $id . '.' . end($temp);
+		$target_file = $target_dir . $newfilename;
+
+		$uploadOk = 1;
+		$imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+		$uploadOk = getimagesize($_FILES["foto_pjb"]["tmp_name"]) !== false ? 1 : 0;
+		$uploadOk = $_FILES["foto_pjb"]["size"] <= 10000000 ? 1 : 0;
+
+		file_exists("img/profile/" . $ambil['foto']) ? unlink("img/profile/" . $ambil['foto']) : "";
+		if ($uploadOk <> 0) {
+			if (move_uploaded_file($_FILES["foto_pjb"]["tmp_name"], $target_file)) {
+				$foto = $newfilename;
+			}
+		}
+	}
+
+	$foto_pjb = $foto;
+	$nama_pjb = $_POST['nama_pjb'];
+	$nip_pjb = $_POST['nip_pjb'];
+	$jabatan_pjb = $_POST['jabatan_pjb'];
+	$hp_pjb = $_POST['hp_pjb'];
+	$alamat_pjb = $_POST['alamat_pjb'];
+
+	$mysqli->query("UPDATE pejabat SET
+	nama = '$nama_pjb',
+	nip = '$nip_pjb',
+	no_hp = '$hp_pjb',
+	alamat = '$alamat_pjb',
+	jabatan = '$jabatan_pjb',
+	foto = '$foto_pjb'
+	WHERE pejabat.username_pejabat = '$id'") ? header("Refresh:0") : "";
+}
 ?>
 
 <!-- ISINYA MULAI DI SINI -->
@@ -24,11 +63,11 @@ $fetch = mysqli_fetch_array($query);
 					<div class="card">
 						<div class="card-body">
 							<div class="d-flex flex-column align-items-center text-center">
-								<img src="./img/orang-1.jpeg" alt="Admin" class="rounded-circle" width="150">
+								<img src="./img/profile/<?= $ambil['foto'] ?>" alt="Admin" class="rounded-circle" width="150" height="150">
 								<div class="mt-3">
-									<h4><?= $fetch['nama'] ?></h4>
-									<p class="text-secondary mb-1"><?= $fetch['jabatan'] ?></p>
-									<p class="text-muted font-size-sm"><?= $fetch['alamat'] ?></p>
+									<h4><?= $ambil['nama'] ?></h4>
+									<p class="text-secondary mb-1"><?= $ambil['jabatan'] ?></p>
+									<p class="text-muted font-size-sm"><?= $ambil['alamat'] ?></p>
 								</div>
 							</div>
 						</div>
@@ -70,7 +109,7 @@ $fetch = mysqli_fetch_array($query);
 									<h6 class="mb-0">Nama Lengkap</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<?= $fetch['nama'] ?>
+									<?= $ambil['nama'] ?>
 								</div>
 							</div>
 
@@ -81,7 +120,7 @@ $fetch = mysqli_fetch_array($query);
 									<h6 class="mb-0">NIP</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<?= $fetch['nip'] ?>
+									<?= $ambil['nip'] ?>
 								</div>
 							</div>
 
@@ -92,7 +131,7 @@ $fetch = mysqli_fetch_array($query);
 									<h6 class="mb-0">Jabatan</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<?= $fetch['jabatan'] ?>
+									<?= $ambil['jabatan'] ?>
 								</div>
 							</div>
 
@@ -103,7 +142,7 @@ $fetch = mysqli_fetch_array($query);
 									<h6 class="mb-0">No. Telepon</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<?= $fetch['no_hp'] ?>
+									<?= $ambil['no_hp'] ?>
 								</div>
 							</div>
 
@@ -114,7 +153,7 @@ $fetch = mysqli_fetch_array($query);
 									<h6 class="mb-0">Alamat</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<?= $fetch['alamat'] ?>
+									<?= $ambil['alamat'] ?>
 								</div>
 							</div>
 
@@ -127,58 +166,6 @@ $fetch = mysqli_fetch_array($query);
 							</div>
 						</div>
 					</div>
-					<!-- MODAL UBAH -->
-					<div class="modal fade" id="ubah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form method="POST" action="">
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Ubah Data</h5>
-										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-									</div>
-									<div class="modal-body">
-										<!-- ISI MODAL START HERE -->
-										<div class="mb-3 row">
-											<label class="col-sm-2 col-form-label">Nama</label>
-											<div class="col-sm-10">
-												<input name="nama_pejabat" type="text" class="form-control" value="<?= $fetch['nama'] ?>">
-											</div>
-										</div>
-										<div class="mb-3 row">
-											<label class="col-sm-2 col-form-label">NIP</label>
-											<div class="col-sm-10">
-												<input name="nip_pejabat" type="text" class="form-control" value="<?= $fetch['nip'] ?>">
-											</div>
-										</div>
-										<div class="mb-3 row">
-											<label class="col-sm-2 col-form-label">Jabatan</label>
-											<div class="col-sm-10">
-												<input name="jabatan_pejabat" type="text" class="form-control" value="<?= $fetch['jabatan'] ?>">
-											</div>
-										</div>
-										<div class="mb-3 row">
-											<label class="col-sm-2 col-form-label">No. HP</label>
-											<div class="col-sm-10">
-												<input name="hp_pejabat" type="text" class="form-control" value="<?= $fetch['no_hp'] ?>">
-											</div>
-										</div>
-										<div class="mb-3 row">
-											<label class="col-sm-2 col-form-label">Alamat</label>
-											<div class="col-sm-10">
-												<input name="alamat_pejabat" type="text" class="form-control" value="<?= $fetch['alamat'] ?>">
-											</div>
-										</div>
-										<!-- ISI MODAL END HERE -->
-									</div>
-									<div class="modal-footer">
-										<button type="submit" class="btn btn-primary">Simpan</button>
-										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-					<!-- MODAL UBAH -->
 
 					<div class="row gutters-sm">
 						<div class="col-sm-6 mb-3">
@@ -229,6 +216,70 @@ $fetch = mysqli_fetch_array($query);
 
 </div>
 <!-- ISINYA BERAKHIR DI SINI -->
+
+<!-- MODAL UBAH -->
+<div class="modal fade" id="ubah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<form method="POST" enctype="multipart/form-data">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ubah Data</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<!-- ISI MODAL START HERE -->
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Foto</label>
+						<div class="col-sm-10">
+							<input name="foto_pjb" type="file" class="form-control" accept="image/*">
+							<div class="mt-1">
+								<small class="text-muted">
+									<i>Disarankan menggunakan gambar rasio 1:1 (persegi)</i>
+								</small>
+							</div>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Nama</label>
+						<div class="col-sm-10">
+							<input name="nama_pjb" type="text" class="form-control" value="<?= $ambil['nama'] ?>" required>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">NIP</label>
+						<div class="col-sm-10">
+							<input name="nip_pjb" type="text" class="form-control" value="<?= $ambil['nip'] ?>" required>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Jabatan</label>
+						<div class="col-sm-10">
+							<input name="jabatan_pjb" type="text" class="form-control" value="<?= $ambil['jabatan'] ?>" required>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">No. HP</label>
+						<div class="col-sm-10">
+							<input name="hp_pjb" type="text" class="form-control" value="<?= $ambil['no_hp'] ?>" required>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Alamat</label>
+						<div class="col-sm-10">
+							<input name="alamat_pjb" type="text" class="form-control" value="<?= $ambil['alamat'] ?>" required>
+						</div>
+					</div>
+					<!-- ISI MODAL END HERE -->
+				</div>
+				<div class="modal-footer">
+					<button type="submit" name="simpan_data" class="btn btn-primary">Simpan</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- MODAL UBAH -->
 
 <?php
 include("layout/footer.php");

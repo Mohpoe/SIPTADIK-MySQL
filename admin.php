@@ -2,6 +2,49 @@
 $title = "Admin";
 include("layout/header.php");
 $_SESSION['role'] != 1 ? header("Location: /") : "";
+
+if (isset($_POST['simpan_data'])) {
+	$target_dir = "img/profile/";
+	$temp = explode(".", $_FILES["foto_pjb"]["name"]);
+	$newfilename = $id . '.' . end($temp);
+	$target_file = $target_dir . $newfilename;
+
+	$uploadOk = 1;
+	$imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+	$uploadOk = getimagesize($_FILES["foto_pjb"]["tmp_name"]) !== false ? 1 : 0;
+	$uploadOk = $_FILES["foto_pjb"]["size"] <= 10000000 ? 1 : 0;
+
+	file_exists("img/profile/" . $ambil['foto']) ? unlink("img/profile/" . $ambil['foto']) : "";
+	if ($uploadOk <> 0) {
+		if (move_uploaded_file($_FILES["foto_pjb"]["tmp_name"], $target_file)) {
+			$foto = $newfilename;
+		}
+	}
+
+	$foto_pjb = $foto;
+	$nama_pjb = $_POST['nama_pjb'];
+	$nip_pjb = $_POST['nip_pjb'];
+	$jabatan_pjb = $_POST['jabatan_pjb'];
+	$hp_pjb = $_POST['hp_pjb'];
+	$alamat_pjb = $_POST['alamat_pjb'];
+
+	$mysqli->query("INSERT INTO pejabat(
+		nama,
+		nip,
+		no_hp,
+		alamat,
+		jabatan,
+		foto
+	) VALUES (
+		'$nama_pjb',
+		'$nip_pjb',
+		'$hp_pjb',
+		'$alamat_pjb',
+		'$jabatan_pjb',
+		'$foto_pjb'
+	)") ? header("Refresh:0") : "";
+}
 ?>
 
 <style>
@@ -53,66 +96,70 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
 	</div>
 </div>
 
-<!-- MODAL TAMBAH PENGGUNA START -->
+<!-- MODAL TAMBAH PENGGUNA -->
 <div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-			<form method="POST" action="proses.php" enctype="multipart/form-data">
+			<form method="POST" enctype="multipart/form-data">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Tambah Pengguna</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Ubah Data</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-				<div class="modal-body px-4">
+				<div class="modal-body">
 					<!-- ISI MODAL START HERE -->
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Foto</label>
+						<div class="col-sm-10">
+							<input name="foto_pjb" type="file" class="form-control" accept="image/*" required>
+							<div class="mt-1">
+								<small class="text-muted">
+									<i>Disarankan menggunakan gambar rasio 1:1 (persegi)</i>
+								</small>
+							</div>
+						</div>
+					</div>
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">Nama</label>
 						<div class="col-sm-10">
-							<input name="nama_pejabat" type="text" class="form-control" required>
+							<input name="nama_pjb" type="text" class="form-control" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">NIP</label>
 						<div class="col-sm-10">
-							<input name="nip_pejabat" type="text" class="form-control" required>
+							<input name="nip_pjb" type="text" class="form-control" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">Jabatan</label>
 						<div class="col-sm-10">
-							<input name="jabatan_pejabat" type="text" class="form-control" required>
+							<input name="jabatan_pjb" type="text" class="form-control" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">No. HP</label>
 						<div class="col-sm-10">
-							<input name="hp_pejabat" type="text" class="form-control" required>
+							<input name="hp_pjb" type="text" class="form-control" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">Alamat</label>
 						<div class="col-sm-10">
-							<input name="alamat_pejabat" type="text" class="form-control" required>
-						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Foto Profil</label>
-						<div class="col-sm-10">
-							<input name="foto_pejabat" class="form-control" type="file" id="formFile" accept="image/*" required>
+							<input name="alamat_pjb" type="text" class="form-control" required>
 						</div>
 					</div>
 					<!-- ISI MODAL END HERE -->
 				</div>
 				<div class="modal-footer">
-					<input type="submit" class="btn btn-primary" name="tambah" value="Simpan">
+					<button type="submit" name="simpan_data" class="btn btn-primary">Simpan</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
-<!-- MODAL TAMBAH PENGGUNA END -->
 
-<!-- MODAL SLIDER START -->
+<!-- MODAL SLIDER -->
 <div class="modal fade" id="slider_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
@@ -176,9 +223,8 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
 		</div>
 	</div>
 </div>
-<!-- MODAL SLIDER END -->
 
-<!-- MODAL BAGIAN START -->
+<!-- MODAL BAGIAN -->
 <div class="modal fade" id="bagian_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
@@ -239,9 +285,8 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
 		</div>
 	</div>
 </div>
-<!-- MODAL BAGIAN END -->
 
-<!-- MODAL SUBBAGIAN START -->
+<!-- MODAL SUBBAGIAN -->
 <div class="modal fade" id="subbagian_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
@@ -279,9 +324,8 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
 		</div>
 	</div>
 </div>
-<!-- MODAL SUBBAGIAN END -->
 
-<!-- MODAL JABATAN START -->
+<!-- MODAL JABATAN -->
 <div class="modal fade" id="jabatan_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
@@ -319,7 +363,6 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
 		</div>
 	</div>
 </div>
-<!-- MODAL JABATAN END -->
 
 <main>
 	<div class="pt-4 pb-3">
@@ -346,8 +389,8 @@ $_SESSION['role'] != 1 ? header("Location: /") : "";
 								<div class="card-header warna-dasar">
 									<?= $nama ?>
 								</div>
-								<div style="height: 265px; overflow: hidden;">
-									<img style="width: 100%;" src="./img/<?= $foto ?>">
+								<div style="height: 309px; overflow: hidden;">
+									<img style="width: 100%;height: 100%;" src="./img/profile/<?= $foto ?>">
 								</div>
 								<div class="card-body">
 									<div class="d-flex justify-content-between align-items-center">
