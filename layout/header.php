@@ -37,7 +37,7 @@ $role = $_SESSION['role'] == 1 ? "Admin" : ($_SESSION['role'] == 2 ? "Piket/Tamu
     <link href="assets/css/riwayat.css" rel="stylesheet">
     <link href="assets/css/icons.css" rel="stylesheet">
     <title>
-        <?=$title ?? "Halaman"?> | SIPTADIK
+        <?= $title ?? "Halaman" ?> | SIPTADIK
     </title>
 </head>
 
@@ -55,10 +55,10 @@ $role = $_SESSION['role'] == 1 ? "Admin" : ($_SESSION['role'] == 2 ? "Piket/Tamu
                         <a class="nav-link active" aria-current="page" href="/">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Kontak</a>
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modal_kontak">Kontak</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Bantuan</a>
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modal_bantuan">Bantuan</a>
                     </li>
                     <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -78,11 +78,71 @@ $role = $_SESSION['role'] == 1 ? "Admin" : ($_SESSION['role'] == 2 ? "Piket/Tamu
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <span class="nav-link">Akun: <b><?=$role?></b></span>
+                        <span class="nav-link">Akun: <b><?= $role ?></b></span>
                     </li>
                 </ul>
-                    <a href="keluar.php" class="btn bg-danger text-light" id="tbl-keluar">Keluar</a>
+                <a href="keluar.php" class="btn bg-danger text-light" id="tbl-keluar">Keluar</a>
             </div>
         </div>
     </nav>
     <!-- NAVBAR END HERE -->
+
+    <!-- MODAL KONTAK -->
+    <div class="modal fade" id="modal_kontak" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form class="m-0 p-0" method="POST" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-info-circle-fill"></i> Kontak</h5>
+                    </div>
+                    <div class="modal-body">
+                        <!-- ISI MODAL START HERE -->
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur hendrerit eu augue in aliquet. Cras rutrum, est in ornare luctus, augue velit vulputate ex, sit amet molestie lectus massa eleifend odio. Fusce id leo arcu. Morbi eu consequat felis. Praesent tempor leo mauris, in tincidunt est finibus vitae. Praesent risus arcu, molestie non enim non, commodo egestas arcu. Aenean malesuada dolor sed libero porta, mollis viverra risus pretium. Sed et felis mollis magna sodales viverra eu et tellus. Cras viverra viverra sapien, at euismod dolor. Mauris sed metus nec justo lacinia rutrum. Etiam gravida nec nibh at facilisis. Phasellus vestibulum eros nulla, non sodales tortor interdum sed. Suspendisse potenti. Phasellus et mauris condimentum, interdum lectus id, fermentum massa.</p>
+
+                        <p>Integer molestie lectus justo. Suspendisse potenti. Nam in odio nunc. Etiam ac lacus suscipit, vehicula diam eu, malesuada risus. Maecenas et faucibus nulla, quis elementum ligula. Nunc convallis nisl at venenatis placerat. Nullam egestas luctus lacus id eleifend. Morbi sit amet ipsum faucibus, lacinia massa sit amet, pulvinar erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed ut vestibulum felis, at luctus libero. Nullam tincidunt, sem vitae elementum tincidunt, est magna tincidunt nulla, nec dignissim sem ex a lectus.</p>
+
+                        <p>Suspendisse tincidunt arcu urna, vitae luctus felis posuere vel. Vivamus at augue eu erat imperdiet tristique ut eu tortor. Phasellus at sem neque. Cras eget augue nec orci dapibus fermentum quis nec tortor. Curabitur sapien lectus, pharetra at augue vitae, pellentesque mattis quam. Curabitur egestas, dui ac laoreet elementum, massa orci elementum massa, luctus semper nisi velit non enim. Donec mattis lobortis consectetur. Etiam ut nibh vulputate, vehicula lorem a, bibendum nunc. Nunc pellentesque eros tincidunt, tincidunt mi quis, bibendum lectus.</p>
+
+                        <p>Proin a turpis eget augue aliquet porta ac quis ex. Aliquam tempus lorem et felis lobortis lobortis. Vivamus eu gravida odio. Aenean pharetra aliquam lacus eu feugiat. Suspendisse tempus ex et ex vehicula, id tempus sem sagittis. Cras viverra ac urna quis ullamcorper. Donec finibus felis nisl, ac semper mauris interdum ut. Proin eget lorem ac ipsum hendrerit condimentum eu et lacus. Donec ultricies rutrum quam, nec molestie neque commodo lacinia. Quisque condimentum eget justo quis dignissim. Fusce ut metus sem.</p>
+
+                        <p>Donec vehicula urna ac nulla facilisis pretium. Suspendisse condimentum ornare orci in bibendum. Nunc non dui eu turpis lacinia porta. Donec gravida a purus nec pretium. Nullam aliquam turpis eu bibendum tempor. Curabitur odio erat, suscipit ac sagittis id, pretium sed ligula. Vestibulum fermentum turpis et felis accumsan, et tincidunt sapien mattis. Suspendisse nec arcu ac est bibendum pulvinar. Vivamus at magna ut ante sodales vulputate. Integer dictum id odio eget porta. Quisque sodales rhoncus odio, vel consequat massa consequat porttitor. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+                        <!-- ISI MODAL END HERE -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" name="simpan_data" class="btn btn-primary">Simpan</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL BANTUAN -->
+    <div class="modal fade" id="modal_bantuan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form class="m-0 p-0" method="POST" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-question-circle-fill"></i> Bantuan</h5>
+                    </div>
+                    <div class="modal-body">
+                        <!-- ISI MODAL START HERE -->
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur hendrerit eu augue in aliquet. Cras rutrum, est in ornare luctus, augue velit vulputate ex, sit amet molestie lectus massa eleifend odio. Fusce id leo arcu. Morbi eu consequat felis. Praesent tempor leo mauris, in tincidunt est finibus vitae. Praesent risus arcu, molestie non enim non, commodo egestas arcu. Aenean malesuada dolor sed libero porta, mollis viverra risus pretium. Sed et felis mollis magna sodales viverra eu et tellus. Cras viverra viverra sapien, at euismod dolor. Mauris sed metus nec justo lacinia rutrum. Etiam gravida nec nibh at facilisis. Phasellus vestibulum eros nulla, non sodales tortor interdum sed. Suspendisse potenti. Phasellus et mauris condimentum, interdum lectus id, fermentum massa.</p>
+
+                        <p>Integer molestie lectus justo. Suspendisse potenti. Nam in odio nunc. Etiam ac lacus suscipit, vehicula diam eu, malesuada risus. Maecenas et faucibus nulla, quis elementum ligula. Nunc convallis nisl at venenatis placerat. Nullam egestas luctus lacus id eleifend. Morbi sit amet ipsum faucibus, lacinia massa sit amet, pulvinar erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed ut vestibulum felis, at luctus libero. Nullam tincidunt, sem vitae elementum tincidunt, est magna tincidunt nulla, nec dignissim sem ex a lectus.</p>
+
+                        <p>Suspendisse tincidunt arcu urna, vitae luctus felis posuere vel. Vivamus at augue eu erat imperdiet tristique ut eu tortor. Phasellus at sem neque. Cras eget augue nec orci dapibus fermentum quis nec tortor. Curabitur sapien lectus, pharetra at augue vitae, pellentesque mattis quam. Curabitur egestas, dui ac laoreet elementum, massa orci elementum massa, luctus semper nisi velit non enim. Donec mattis lobortis consectetur. Etiam ut nibh vulputate, vehicula lorem a, bibendum nunc. Nunc pellentesque eros tincidunt, tincidunt mi quis, bibendum lectus.</p>
+
+                        <p>Proin a turpis eget augue aliquet porta ac quis ex. Aliquam tempus lorem et felis lobortis lobortis. Vivamus eu gravida odio. Aenean pharetra aliquam lacus eu feugiat. Suspendisse tempus ex et ex vehicula, id tempus sem sagittis. Cras viverra ac urna quis ullamcorper. Donec finibus felis nisl, ac semper mauris interdum ut. Proin eget lorem ac ipsum hendrerit condimentum eu et lacus. Donec ultricies rutrum quam, nec molestie neque commodo lacinia. Quisque condimentum eget justo quis dignissim. Fusce ut metus sem.</p>
+
+                        <p>Donec vehicula urna ac nulla facilisis pretium. Suspendisse condimentum ornare orci in bibendum. Nunc non dui eu turpis lacinia porta. Donec gravida a purus nec pretium. Nullam aliquam turpis eu bibendum tempor. Curabitur odio erat, suscipit ac sagittis id, pretium sed ligula. Vestibulum fermentum turpis et felis accumsan, et tincidunt sapien mattis. Suspendisse nec arcu ac est bibendum pulvinar. Vivamus at magna ut ante sodales vulputate. Integer dictum id odio eget porta. Quisque sodales rhoncus odio, vel consequat massa consequat porttitor. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+                        <!-- ISI MODAL END HERE -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" name="simpan_data" class="btn btn-primary">Simpan</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

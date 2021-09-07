@@ -96,69 +96,6 @@ if (isset($_POST['simpan_data'])) {
 	</div>
 </div>
 
-<!-- MODAL TAMBAH PENGGUNA -->
-<div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<form class="m-0 p-0" method="POST" enctype="multipart/form-data">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Ubah Data</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<!-- ISI MODAL START HERE -->
-					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Foto</label>
-						<div class="col-sm-10">
-							<input name="foto_pjb" type="file" class="form-control" accept="image/*" required>
-							<div class="mt-1">
-								<small class="text-muted">
-									<i>Disarankan menggunakan gambar rasio 1:1 (persegi)</i>
-								</small>
-							</div>
-						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Nama</label>
-						<div class="col-sm-10">
-							<input name="nama_pjb" type="text" class="form-control" required>
-						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">NIP</label>
-						<div class="col-sm-10">
-							<input name="nip_pjb" type="text" class="form-control" required>
-						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Jabatan</label>
-						<div class="col-sm-10">
-							<input name="jabatan_pjb" type="text" class="form-control" required>
-						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">No. HP</label>
-						<div class="col-sm-10">
-							<input name="hp_pjb" type="text" class="form-control" required>
-						</div>
-					</div>
-					<div class="mb-3 row">
-						<label class="col-sm-2 col-form-label">Alamat</label>
-						<div class="col-sm-10">
-							<input name="alamat_pjb" type="text" class="form-control" required>
-						</div>
-					</div>
-					<!-- ISI MODAL END HERE -->
-				</div>
-				<div class="modal-footer">
-					<button type="submit" name="simpan_data" class="btn btn-primary">Simpan</button>
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-
 <!-- MODAL SLIDER -->
 <div class="modal fade" id="slider_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
@@ -217,6 +154,68 @@ if (isset($_POST['simpan_data'])) {
 				</div>
 				<!-- ISI MODAL END HERE -->
 				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- MODAL TAMBAH PENGGUNA -->
+<div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<form class="m-0 p-0" method="POST" enctype="multipart/form-data">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ubah Data</h5>
+				</div>
+				<div class="modal-body">
+					<!-- ISI MODAL START HERE -->
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Foto</label>
+						<div class="col-sm-10">
+							<input name="foto_pjb" type="file" class="form-control" accept="image/*" required>
+							<div class="mt-1">
+								<small class="text-muted">
+									<i>Disarankan menggunakan gambar rasio 1:1 (persegi)</i>
+								</small>
+							</div>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Nama</label>
+						<div class="col-sm-10">
+							<input name="nama_pjb" type="text" class="form-control" required>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">NIP</label>
+						<div class="col-sm-10">
+							<input name="nip_pjb" type="text" class="form-control" required>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Jabatan</label>
+						<div class="col-sm-10">
+							<input name="jabatan_pjb" type="text" class="form-control" required>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">No. HP</label>
+						<div class="col-sm-10">
+							<input name="hp_pjb" type="text" class="form-control" required>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Alamat</label>
+						<div class="col-sm-10">
+							<input name="alamat_pjb" type="text" class="form-control" required>
+						</div>
+					</div>
+					<!-- ISI MODAL END HERE -->
+				</div>
+				<div class="modal-footer">
+					<button type="submit" name="simpan_data" class="btn btn-primary">Simpan</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
 				</div>
 			</form>
@@ -291,7 +290,7 @@ if (isset($_POST['simpan_data'])) {
 					<div class="mb-3 row">
 						<label class="col-sm-3 col-form-label">Tambah Bagian</label>
 						<div class="col-sm-8">
-							<input name="jabatan_pejabat" type="text" class="form-control" required>
+							<input name="tambah_bagian" type="text" class="form-control" required>
 						</div>
 						<button class="col-sm-1 btn btn-success"><i class="bi bi-plus-lg"></i></button>
 					</div>
@@ -363,7 +362,7 @@ if (isset($_POST['simpan_data'])) {
 												</div>
 												<div class="col-sm-4">
 													<select class="form-select" name="edit_nama_bagian_<?= $id_subbagian ?>">
-														<option value="" selected>== Pilih salah satu ==</option>
+														<option value="" selected>== Pilih jenis bagian ==</option>
 														<?php
 														$subquery = $mysqli->query("SELECT * FROM bagian ORDER BY nama_bagian ASC");
 														while ($result = mysqli_fetch_array($subquery)) {
@@ -391,7 +390,7 @@ if (isset($_POST['simpan_data'])) {
 					<div class="mb-3 row">
 						<label class="col-sm-3 col-form-label">Tambah Bagian</label>
 						<div class="col-sm-8">
-							<input name="jabatan_pejabat" type="text" class="form-control" required>
+							<input name="tambah_subbagian" type="text" class="form-control" required>
 						</div>
 						<button class="col-sm-1 btn btn-success"><i class="bi bi-plus-lg"></i></button>
 					</div>
@@ -444,7 +443,7 @@ if (isset($_POST['simpan_data'])) {
 									$nama_jabatan = $result['nama_jabatan'];
 
 									$id_subbagian = $result['id_subbagian'];
-									$nama_subbagian = $result['nama_subbagian'];
+									$nama_subbagian = $result['nama_subbagian'] ?? "-";
 
 									$id_bagian = $result['id_bagian'];
 									$nama_bagian = $result['nama_bagian'];
@@ -465,12 +464,27 @@ if (isset($_POST['simpan_data'])) {
 									<tr>
 										<td colspan="5" class="collapse" id="edit_jabatan_<?= $num ?>">
 											<div class="row">
-												<div class="col-sm-7">
+												<div class="col-sm-5">
 													<input name="jabatan_<?= $id_jabatan ?>" type="text" class="form-control" required value="<?= $nama_jabatan ?>">
 												</div>
-												<div class="col-sm-4">
+												<div class="col-sm-3">
+													<select class="form-select" name="edit_nama_subbagian_<?= $id_jabatan ?>">
+														<option value="" selected>== Pilih jenis sub bagian ==</option>
+														<?php
+														$subquery = $mysqli->query("SELECT * FROM subbagian ORDER BY nama_subbagian ASC");
+														while ($result = mysqli_fetch_array($subquery)) {
+															$select_id_subbagian = $result['id'];
+															$select_nama_subbagian = $result['nama_subbagian'];
+														?>
+															<option value="<?= $select_id_subbagian ?>" <?= $select_id_subbagian == $id_subbagian ? 'selected' : '' ?> ><?= $select_nama_subbagian ?></option>
+														<?php
+														}
+														?>
+													</select>
+												</div>
+												<div class="col-sm-3">
 													<select class="form-select" name="edit_nama_bagian_<?= $id_jabatan ?>">
-														<option value="" selected>== Pilih salah satu ==</option>
+														<option value="" selected>== Pilih jenis bagian ==</option>
 														<?php
 														$subquery = $mysqli->query("SELECT * FROM bagian ORDER BY nama_bagian ASC");
 														while ($result = mysqli_fetch_array($subquery)) {
@@ -498,7 +512,7 @@ if (isset($_POST['simpan_data'])) {
 					<div class="mb-3 row">
 						<label class="col-sm-3 col-form-label">Tambah Bagian</label>
 						<div class="col-sm-8">
-							<input name="jabatan_pejabat" type="text" class="form-control" required>
+							<input name="tambah_jabatan" type="text" class="form-control" required>
 						</div>
 						<button class="col-sm-1 btn btn-success"><i class="bi bi-plus-lg"></i></button>
 					</div>
