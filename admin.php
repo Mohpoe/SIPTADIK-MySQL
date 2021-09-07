@@ -23,27 +23,30 @@ if (isset($_POST['simpan_data'])) {
 	}
 
 	$foto_pjb = $foto;
+	$pengguna_pjb = $_POST['pengguna_pjb'];
 	$nama_pjb = $_POST['nama_pjb'];
 	$nip_pjb = $_POST['nip_pjb'];
 	$jabatan_pjb = $_POST['jabatan_pjb'];
 	$hp_pjb = $_POST['hp_pjb'];
 	$alamat_pjb = $_POST['alamat_pjb'];
 
-	$mysqli->query("INSERT INTO pejabat(
-		nama,
-		nip,
-		no_hp,
-		alamat,
-		jabatan,
-		foto
-	) VALUES (
-		'$nama_pjb',
-		'$nip_pjb',
-		'$hp_pjb',
-		'$alamat_pjb',
-		'$jabatan_pjb',
-		'$foto_pjb'
-	)") ? header("Refresh:0") : "";
+	// $mysqli->query("INSERT INTO pejabat(
+	// 	nama,
+	// 	nama,
+	// 	nip,
+	// 	no_hp,
+	// 	alamat,
+	// 	jabatan,
+	// 	foto
+	// ) VALUES (
+	// 	'$nama_pjb',
+	// 	'$nama_pjb',
+	// 	'$nip_pjb',
+	// 	'$hp_pjb',
+	// 	'$alamat_pjb',
+	// 	'$jabatan_pjb',
+	// 	'$foto_pjb'
+	// )") ? header("Refresh:0") : "";
 }
 ?>
 
@@ -172,11 +175,20 @@ if (isset($_POST['simpan_data'])) {
 				<div class="modal-body">
 					<!-- ISI MODAL START HERE -->
 					<div class="mb-3 row">
+						<label class="col-sm-2 col-form-label">Pengguna</label>
+						<div class="col-sm-10">
+							<input name="pengguna_pjb" type="text" class="form-control" required>
+							<div class="mt-1">
+								<small class="text-danger"><i>Gunakan huruf kecil dan angka tanpa simbol dan diawali huruf</i></small>
+							</div>
+						</div>
+					</div>
+					<div class="mb-3 row">
 						<label class="col-sm-2 col-form-label">Foto</label>
 						<div class="col-sm-10">
 							<input name="foto_pjb" type="file" class="form-control" accept="image/*" required>
 							<div class="mt-1">
-								<small class="text-muted">
+								<small class="text-danger">
 									<i>Disarankan menggunakan gambar rasio 1:1 (persegi)</i>
 								</small>
 							</div>
@@ -369,7 +381,7 @@ if (isset($_POST['simpan_data'])) {
 															$select_id_bagian = $result['id'];
 															$select_nama_bagian = $result['nama_bagian'];
 														?>
-															<option value="<?= $select_id_bagian ?>" <?= $select_id_bagian == $id_bagian ? 'selected' : '' ?> ><?= $select_nama_bagian ?></option>
+															<option value="<?= $select_id_bagian ?>" <?= $select_id_bagian == $id_bagian ? 'selected' : '' ?>><?= $select_nama_bagian ?></option>
 														<?php
 														}
 														?>
@@ -447,7 +459,7 @@ if (isset($_POST['simpan_data'])) {
 
 									$id_bagian = $result['id_bagian'];
 									$nama_bagian = $result['nama_bagian'];
-									
+
 									$num++;
 								?>
 
@@ -476,7 +488,7 @@ if (isset($_POST['simpan_data'])) {
 															$select_id_subbagian = $result['id'];
 															$select_nama_subbagian = $result['nama_subbagian'];
 														?>
-															<option value="<?= $select_id_subbagian ?>" <?= $select_id_subbagian == $id_subbagian ? 'selected' : '' ?> ><?= $select_nama_subbagian ?></option>
+															<option value="<?= $select_id_subbagian ?>" <?= $select_id_subbagian == $id_subbagian ? 'selected' : '' ?>><?= $select_nama_subbagian ?></option>
 														<?php
 														}
 														?>
@@ -491,7 +503,7 @@ if (isset($_POST['simpan_data'])) {
 															$select_id_bagian = $result['id'];
 															$select_nama_bagian = $result['nama_bagian'];
 														?>
-															<option value="<?= $select_id_bagian ?>" <?= $select_id_bagian == $id_bagian ? 'selected' : '' ?> ><?= $select_nama_bagian ?></option>
+															<option value="<?= $select_id_bagian ?>" <?= $select_id_bagian == $id_bagian ? 'selected' : '' ?>><?= $select_nama_bagian ?></option>
 														<?php
 														}
 														?>
